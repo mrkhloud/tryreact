@@ -1,37 +1,29 @@
-import React, {useState, useRef} from 'react';
+import React, {useState} from 'react';
 import './styles/App.css';
 import PostList from './components/PostList.jsx'
-import MyButton from './components/UI/button/MyButton.jsx'
-import MyInput from './components/UI/input/MyInput.jsx'
+import PostForm from'./components/PostForm.jsx'
 
 function App() {
     const [posts, setPosts] = useState([
-        {id: 1, title: "ogjsolg", content: "sgsdhg"}
-    ])
+        {id: 1, title: "ogjsolg", content: "sgsdhg"}]);
 
-    const [title, setTitle] = useState('')
-    const [content, setContent] = useState('')
+    const CreateNewPost = (NewPost) => {
+        setPosts([...posts, NewPost])
+    };
 
-    const setNewTitle = (event) => {
-        event.preventDefault() // для того чтобы браузер работал не поумолчанию (отправлял на сервер запрос)
-        const newPost = {
-            id: posts[posts.length-1]['id']+1,
-            title,
-            content
-        }
-        setPosts([...posts, newPost])
-        setTitle('')
-        setContent('')
-    }
+    const DeletePost = (Post) => {
+        setPosts(posts.filter(post => post.id !== Post.id))
+    };
 
     return (
         <div className="App">
-            <form>
-                <MyInput  value={title} type='text' placeholder='Название' onChange={event => setTitle(event.target.value)}/>
-                <MyInput value={content} type='text' placeholder='Содержимое' onChange={event => setContent(event.target.value)}/>
-                <MyButton onClick={setNewTitle}>Создать</MyButton>
-            </form>
-            <PostList posts={posts} title={'Список публикаций'}/>
+            <PostForm CreateNewPost={CreateNewPost}/>
+            {posts.length !== 0
+                ? <PostList DeletePost={DeletePost} posts={posts} title={'Список публикаций'}/>
+                : <h1 style={{textAlign: "center"}}>Нет публикаций</h1>
+
+            }
+
         </div>
     );
 }
