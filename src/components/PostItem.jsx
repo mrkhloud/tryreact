@@ -8,7 +8,7 @@ const PostItem = ({DeletePost, ...props}) => {
             <div className="post__content">
                 <strong>{props.post.id} - {props.post.title}</strong>
                 <div>
-                    <p>{props.post.content}</p>
+                    <p>{props.post.descriptive}</p>
                 </div>
             </div>
             <div className="post__btns">
