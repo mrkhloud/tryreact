@@ -6,7 +6,7 @@ const PostList = ({DeletePost, posts, title}) => {
         return(
             <h1 style={{textAlign: "center"}}>Нет публикаций!</h1>
         )
-    };
+    }
 
     return (
         <div>
